@@ -1,34 +1,37 @@
-version: "3"
 services:
   mysql:
     image: mysql:latest
     restart: always
     container_name: mysql
-    platform: linux/x86_64
     ports:
-      - '3306:3306'
+      - "3306:3306"
+    expose:
+      - "3306"
     volumes:
-      - ./mysql/db/00_jobs_table.sql:/docker-entrypoint-initdb.d/00_jobs_table.sql
-      - ./mysql/db/01_departments_table.sql:/docker-entrypoint-initdb.d/01_departments_table.sql
-      - ./mysql/db/02_hired_employees.sql:/docker-entrypoint-initdb.d/02_hired_employees.sql
+      - ./mysql/db/00_init.sql:/docker-entrypoint-initdb.d/00_init.sql
     environment:
-      - MYSQL_ROOT_PASSWORD=adminadmin
-      - MYSQL_DATABASE=hr_management
-    env_file:
-      - ./mysql/local.env
+      MYSQL_DATABASE: 'hr_management'
+      # So you don't have to use root, but you can if you like
+      MYSQL_ROOT_PASSWORD: 'adminadmin'
+      MYSQL_PASSWORD: 'adminadmin'
 
   api:
     depends_on:
       - mysql
     container_name: rest-api-docker
-    platform: linux/x86_64
     build:
       context: ./api
       dockerfile: Dockerfile
     restart: unless-stopped
+    links:
+      - mysql
     volumes:
       - ./api:/app
     ports:
-      - 8000:8000
-    env_file:
-      - ./api/local.env
+      - "5000:5000"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: hr_management
+      DB_USER: root
+      DB_PASSWORD: adminadmin
