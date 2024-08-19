@@ -1,14 +1,19 @@
 version: "3"
 services:
   mysql:
+    image: mysql:latest
+    restart: always
     container_name: mysql
     platform: linux/x86_64
-    build: ./mysql/
     ports:
-      - "3306:3306"
+      - '3306:3306'
     volumes:
-      - ./mysql/db:/docker-entrypoint-initdb.d
-      - ./mysql/conf.d:/etc/mysql/conf.d
+      - ./mysql/db/00_jobs_table.sql:/docker-entrypoint-initdb.d/00_jobs_table.sql
+      - ./mysql/db/01_departments_table.sql:/docker-entrypoint-initdb.d/01_departments_table.sql
+      - ./mysql/db/02_hired_employees.sql:/docker-entrypoint-initdb.d/02_hired_employees.sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=adminadmin
+      - MYSQL_DATABASE=hr_management
     env_file:
       - ./mysql/local.env
 

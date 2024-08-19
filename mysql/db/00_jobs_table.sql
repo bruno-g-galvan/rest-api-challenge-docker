@@ -3,3 +3,5 @@ CREATE TABLE jobs (
     job VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
+
+INSERT INTO jobs (id, job) values (1, 'Support')
