@@ -9,9 +9,9 @@ services:
       - "3306"
     volumes:
       - ./mysql/db/00_init.sql:/docker-entrypoint-initdb.d/00_init.sql
+      - ./mysql/csv_data:/var/lib/mysql-files
     environment:
       MYSQL_DATABASE: 'hr_management'
-      # So you don't have to use root, but you can if you like
       MYSQL_ROOT_PASSWORD: 'adminadmin'
       MYSQL_PASSWORD: 'adminadmin'
 

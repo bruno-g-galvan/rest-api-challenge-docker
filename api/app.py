@@ -40,6 +40,46 @@ def jobs():
         print(f"Unexpected error: {ex}")
         return f"An unexpected error occurred: {ex}"
 
+@app.route('/departments')
+def departments():
+    try:
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor()
+        sql = """SELECT * FROM departments"""
+        cursor.execute(sql)
+        data = cursor.fetchall()
+        lst_jobs = []
+        for row in data:
+            job = {'id':row[0],'department':row[1]}
+            lst_jobs.append(job)
+        return lst_jobs
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return f"Database connection failed: {err}"
+    except Exception as ex:
+        print(f"Unexpected error: {ex}")
+        return f"An unexpected error occurred: {ex}"
+    
+@app.route('/hired_employees')
+def hired_employees():
+    try:
+        connection = mysql.connector.connect(**config)
+        cursor = connection.cursor()
+        sql = """SELECT * FROM hired_employees"""
+        cursor.execute(sql)
+        data = cursor.fetchall()
+        lst_jobs = []
+        for row in data:
+            job = {'id':row[0],'employee':row[1],'entry_date':row[2],'department_id':row[3],'job_id':row[4]}
+            lst_jobs.append(job)
+        return lst_jobs
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return f"Database connection failed: {err}"
+    except Exception as ex:
+        print(f"Unexpected error: {ex}")
+        return f"An unexpected error occurred: {ex}"
+
 @app.route('/hired_employees_2021_quarters')
 def hired_employees_2021_quarters():
     try:
@@ -208,6 +248,5 @@ def page_not_found(error):
     return "<h1> Your desired paged doesn't exist... </h1>"
 
 if __name__ == '__main__':
-    #app.config.from_object(config['development'])
     app.register_error_handler(404, page_not_found)
     app.run(host='0.0.0.0')
