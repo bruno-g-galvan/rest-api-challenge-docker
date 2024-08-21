@@ -2,7 +2,7 @@
 
 This Flask-based REST API application provides endpoints to interact with a MySQL database. It is designed to retrieve and publish data in JSON format, including job information, department details, hired employees, and specific queries related to hired employees in 2021.
 
-![1724257687905](image/README/1724257687905.png)
+![1724258359386](image/README/1724258359386.png)
 
 ## Components
 
@@ -13,10 +13,6 @@ This Flask-based REST API application provides endpoints to interact with a MySQ
 ### MySQL Connector
 
 - `mysql.connector` is used to connect to the MySQL database and execute SQL queries. The connection configuration is provided via environment variables.
-
-### Environment Variables
-
-- Database connection parameters such as `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, and `DB_PASSWORD` are retrieved from environment variables.
 
 ### Endpoints
 
