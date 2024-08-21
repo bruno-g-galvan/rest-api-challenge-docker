@@ -111,7 +111,7 @@ def hired_employees_2021_quarters():
                 ) AS subquery
                 WHERE entry_year = 2021
                 GROUP BY job, department
-                ORDER BY count(id) DESC"""
+                ORDER BY department DESC, job DESC"""
         cursor.execute(sql)
         data = cursor.fetchall()
         lst_jobs = []
