@@ -1,7 +1,10 @@
-
 # Overview
 
 This Flask-based REST API application provides endpoints to interact with a MySQL database. It is designed to retrieve and publish data in JSON format, including job information, department details, hired employees, and specific queries related to hired employees in 2021.
+
++--------+           +----------+           +------------+
+|   Client  |  <---> | REST API |  <---> | MySQL DB |
++--------+           +----------+           +------------+
 
 ## Components
 
